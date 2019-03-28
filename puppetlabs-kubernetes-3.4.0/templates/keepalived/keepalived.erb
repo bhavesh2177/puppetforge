@@ -1,0 +1,28 @@
+! Configuration File for keepalived
+
+vrrp_script chk_kube_svc {
+   script "/bin/bash /etc/keepalived/checkService.sh"
+   interval 2
+   weight -100
+   timeout 5
+   fall 2
+   rise 2
+}
+
+vrrp_instance VI_1 {
+   state MASTER
+   interface eth2
+   virtual_router_id <%= @keepalived_virtual_router_id %>
+   priority 200
+   advert_int 1
+   authentication {
+       auth_type PASS
+       auth_pass <%= @keepalived_auth_pass %>
+   }
+   virtual_ipaddress {
+       <%= @virtual_master_ip %> dev eth2
+   }
+   track_script {
+       chk_kube_svc
+   }
+}

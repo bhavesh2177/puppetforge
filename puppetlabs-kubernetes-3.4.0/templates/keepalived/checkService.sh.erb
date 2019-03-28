@@ -1,0 +1,26 @@
+#!/bin/bash
+
+PATH='/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/opt/puppetlabs/bin:/root/bin';
+SERVICES=('etcd' 'kube-apiserver' 'kube-controller-manager' 'kube-scheduler' 'kubelet');
+
+for i in ${SERVICES[@]}; 
+  do
+        pidof $i >/dev/null 2>&1;
+
+        if test $? -ne 0;
+          then
+                exit 1; # As the service not running exiting with status code 1.
+        fi
+
+        if [[ "$i" == "etcd" ]];
+          then
+                curl -s http://<%= @etcd_ip %>:2379/health | grep -qi true
+                if test $? -ne 0;
+                  then
+                        exit 1; # As the service not running exiting with status code 1.
+                fi
+        fi
+
+done
+
+exit 0;
