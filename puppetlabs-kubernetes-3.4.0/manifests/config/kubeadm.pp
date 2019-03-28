@@ -1,44 +1,51 @@
 # Class kubernetes config kubeadm, populates kubeadm config file with params to bootstrap cluster
-class kubernetes::config::kubeadm (
-  String $config_file = $kubernetes::config_file,
-  Boolean $manage_etcd = $kubernetes::manage_etcd,
-  String $etcd_install_method = $kubernetes::etcd_install_method,
-  String $kubernetes_version  = $kubernetes::kubernetes_version,
-  String $kubernetes_cluster_name  = $kubernetes::kubernetes_cluster_name,
-  String $etcd_ca_key = $kubernetes::etcd_ca_key,
-  String $etcd_ca_crt = $kubernetes::etcd_ca_crt,
-  String $etcdclient_key = $kubernetes::etcdclient_key,
-  String $etcdclient_crt = $kubernetes::etcdclient_crt,
-  String $etcdserver_crt = $kubernetes::etcdserver_crt,
-  String $etcdserver_key = $kubernetes::etcdserver_key,
-  String $etcdpeer_crt = $kubernetes::etcdpeer_crt,
-  String $etcdpeer_key = $kubernetes::etcdpeer_key,
-  Array $etcd_peers = $kubernetes::etcd_peers,
-  String $etcd_ip = $kubernetes::etcd_ip,
-  String $cni_pod_cidr = $kubernetes::cni_pod_cidr,
-  String $kube_api_advertise_address = $kubernetes::kube_api_advertise_address,
-  String $etcd_initial_cluster = $kubernetes::etcd_initial_cluster,
-  String $etcd_initial_cluster_state = $kubernetes::etcd_initial_cluster_state,
-  Integer $api_server_count = $kubernetes::api_server_count,
-  String $etcd_version = $kubernetes::etcd_version,
-  String $token = $kubernetes::token,
-  String $discovery_token_hash = $kubernetes::discovery_token_hash,
-  String $kubernetes_ca_crt = $kubernetes::kubernetes_ca_crt,
-  String $kubernetes_ca_key = $kubernetes::kubernetes_ca_key,
-  String $container_runtime = $kubernetes::container_runtime,
-  String $sa_pub = $kubernetes::sa_pub,
-  String $sa_key = $kubernetes::sa_key,
-  Optional[Array] $apiserver_cert_extra_sans = $kubernetes::apiserver_cert_extra_sans,
-  Optional[Array] $apiserver_extra_arguments = $kubernetes::apiserver_extra_arguments,
-  Optional[Array] $kubelet_extra_arguments = $kubernetes::kubelet_extra_arguments,
-  String $service_cidr = $kubernetes::service_cidr,
-  String $node_name = $kubernetes::node_name,
-  Optional[String] $cloud_provider = $kubernetes::cloud_provider,
-  Optional[String] $cloud_config = $kubernetes::cloud_config,
-  Optional[Hash] $kubeadm_extra_config = $kubernetes::kubeadm_extra_config,
-  Optional[Hash] $kubelet_extra_config = $kubernetes::kubelet_extra_config,
-  String $image_repository = $kubernetes::image_repository,
-  String $cgroup_driver = $kubernetes::cgroup_driver,
+class kubernetes_v1_13_0::config::kubeadm (
+  # Newly Added by Bhavesh
+  String $etcd_name = $kubernetes_v1_13_0::etcd_name,
+  String $etcd_cluster_token = $kubernetes_v1_13_0::etcd_cluster_token,
+  String $keepalived_auth_pass = $kubernetes_v1_13_0::keepalived_auth_pass,
+  String $keepalived_virtual_router_id = $kubernetes_v1_13_0::keepalived_virtual_router_id,
+  # Addition End
+
+  String $config_file = $kubernetes_v1_13_0::config_file,
+  Boolean $manage_etcd = $kubernetes_v1_13_0::manage_etcd,
+  String $etcd_install_method = $kubernetes_v1_13_0::etcd_install_method,
+  String $kubernetes_version  = $kubernetes_v1_13_0::kubernetes_version,
+  String $kubernetes_cluster_name  = $kubernetes_v1_13_0::kubernetes_cluster_name,
+  String $etcd_ca_key = $kubernetes_v1_13_0::etcd_ca_key,
+  String $etcd_ca_crt = $kubernetes_v1_13_0::etcd_ca_crt,
+  String $etcdclient_key = $kubernetes_v1_13_0::etcdclient_key,
+  String $etcdclient_crt = $kubernetes_v1_13_0::etcdclient_crt,
+  String $etcdserver_crt = $kubernetes_v1_13_0::etcdserver_crt,
+  String $etcdserver_key = $kubernetes_v1_13_0::etcdserver_key,
+  String $etcdpeer_crt = $kubernetes_v1_13_0::etcdpeer_crt,
+  String $etcdpeer_key = $kubernetes_v1_13_0::etcdpeer_key,
+  Array $etcd_peers = $kubernetes_v1_13_0::etcd_peers,
+  String $etcd_ip = $kubernetes_v1_13_0::etcd_ip,
+  String $cni_pod_cidr = $kubernetes_v1_13_0::cni_pod_cidr,
+  String $kube_api_advertise_address = $kubernetes_v1_13_0::kube_api_advertise_address,
+  String $etcd_initial_cluster = $kubernetes_v1_13_0::etcd_initial_cluster,
+  String $etcd_initial_cluster_state = $kubernetes_v1_13_0::etcd_initial_cluster_state,
+  Integer $api_server_count = $kubernetes_v1_13_0::api_server_count,
+  String $etcd_version = $kubernetes_v1_13_0::etcd_version,
+  String $token = $kubernetes_v1_13_0::token,
+  String $discovery_token_hash = $kubernetes_v1_13_0::discovery_token_hash,
+  String $kubernetes_ca_crt = $kubernetes_v1_13_0::kubernetes_ca_crt,
+  String $kubernetes_ca_key = $kubernetes_v1_13_0::kubernetes_ca_key,
+  String $container_runtime = $kubernetes_v1_13_0::container_runtime,
+  String $sa_pub = $kubernetes_v1_13_0::sa_pub,
+  String $sa_key = $kubernetes_v1_13_0::sa_key,
+  Optional[Array] $apiserver_cert_extra_sans = $kubernetes_v1_13_0::apiserver_cert_extra_sans,
+  Optional[Array] $apiserver_extra_arguments = $kubernetes_v1_13_0::apiserver_extra_arguments,
+  Optional[Array] $kubelet_extra_arguments = $kubernetes_v1_13_0::kubelet_extra_arguments,
+  String $service_cidr = $kubernetes_v1_13_0::service_cidr,
+  String $node_name = $kubernetes_v1_13_0::node_name,
+  Optional[String] $cloud_provider = $kubernetes_v1_13_0::cloud_provider,
+  Optional[String] $cloud_config = $kubernetes_v1_13_0::cloud_config,
+  Optional[Hash] $kubeadm_extra_config = $kubernetes_v1_13_0::kubeadm_extra_config,
+  Optional[Hash] $kubelet_extra_config = $kubernetes_v1_13_0::kubelet_extra_config,
+  String $image_repository = $kubernetes_v1_13_0::image_repository,
+  String $cgroup_driver = $kubernetes_v1_13_0::cgroup_driver,
 ) {
 
   $kube_dirs = ['/etc/kubernetes','/etc/kubernetes/manifests','/etc/kubernetes/pki','/etc/kubernetes/pki/etcd']
@@ -56,19 +63,19 @@ class kubernetes::config::kubeadm (
     $etcd.each | String $etcd_files | {
       file { "/etc/kubernetes/pki/etcd/${etcd_files}":
         ensure  => present,
-        content => template("kubernetes/etcd/${etcd_files}.erb"),
+        content => template("kubernetes_v1_13_0/etcd/${etcd_files}.erb"),
         mode    => '0600',
       }
     }
     if $etcd_install_method == 'wget' {
       file { '/etc/systemd/system/etcd.service':
         ensure  => present,
-        content => template('kubernetes/etcd/etcd.service.erb'),
+        content => template('kubernetes_v1_13_0/etcd/etcd.service.erb'),
       }
     } else {
       file { '/etc/default/etcd':
         ensure  => present,
-        content => template('kubernetes/etcd/etcd.erb'),
+        content => template('kubernetes_v1_13_0/etcd/etcd.erb'),
       }
     }
   }
@@ -76,7 +83,7 @@ class kubernetes::config::kubeadm (
   $pki.each | String $pki_files | {
     file {"/etc/kubernetes/pki/${pki_files}":
       ensure  => present,
-      content => template("kubernetes/pki/${pki_files}.erb"),
+      content => template("kubernetes_v1_13_0/pki/${pki_files}.erb"),
       mode    => '0600',
     }
   }
@@ -127,7 +134,7 @@ class kubernetes::config::kubeadm (
 
   file { $config_file:
     ensure  => present,
-    content => template("kubernetes/${config_version}/config_kubeadm.yaml.erb"),
+    content => template("kubernetes_v1_13_0/${config_version}/config_kubeadm.yaml.erb"),
     mode    => '0600',
   }
 }

@@ -339,12 +339,19 @@
 #
 #
 #
-class kubernetes (
+class kubernetes_v1_13_0 (
+  # Newly Added by Bhavesh
+  String $etcd_name                            = undef,
+  String $etcd_cluster_token                   = undef,
+  String $keepalived_auth_pass                 = undef,
+  String $keepalived_virtual_router_id         = undef,
+  # Addition End
+
   String $kubernetes_version                   = '1.10.2',
   String $kubernetes_cluster_name              = 'kubernetes',
   String $kubernetes_package_version           = $facts['os']['family'] ? {
                                                     'Debian' => "${kubernetes_version}-00",
-                                                    'RedHat' => $kubernetes::kubernetes_version,
+                                                    'RedHat' => $kubernetes_v1_13_0::kubernetes_version,
                                                   },
   String $container_runtime                    = 'docker',
   Optional[String] $containerd_version         = '1.1.0',
@@ -461,41 +468,44 @@ class kubernetes (
   $config_file = '/etc/kubernetes/config.yaml'
 
   if $controller {
-    include kubernetes::repos
-    include kubernetes::packages
-    include kubernetes::config::kubeadm
-    include kubernetes::service
-    include kubernetes::cluster_roles
-    include kubernetes::kube_addons
-    contain kubernetes::repos
-    contain kubernetes::packages
-    contain kubernetes::config::kubeadm
-    contain kubernetes::service
-    contain kubernetes::cluster_roles
-    contain kubernetes::kube_addons
+    include kubernetes_v1_13_0::repos
+    include kubernetes_v1_13_0::packages
+    include kubernetes_v1_13_0::config::kubeadm
+    include kubernetes_v1_13_0::service
+    include kubernetes_v1_13_0::cluster_roles
+    include kubernetes_v1_13_0::kube_addons
+    include kubernetes_v1_13_0::keepalived
+    contain kubernetes_v1_13_0::repos
+    contain kubernetes_v1_13_0::packages
+    contain kubernetes_v1_13_0::config::kubeadm
+    contain kubernetes_v1_13_0::service
+    contain kubernetes_v1_13_0::cluster_roles
+    contain kubernetes_v1_13_0::kube_addons
+    contain kubernetes_v1_13_0::keepalived
 
-    Class['kubernetes::repos']
-      -> Class['kubernetes::packages']
-      -> Class['kubernetes::config::kubeadm']
-      -> Class['kubernetes::service']
-      -> Class['kubernetes::cluster_roles']
-      -> Class['kubernetes::kube_addons']
+    Class['kubernetes_v1_13_0::repos']
+      -> Class['kubernetes_v1_13_0::keepalived']
+      -> Class['kubernetes_v1_13_0::packages']
+      -> Class['kubernetes_v1_13_0::config::kubeadm']
+      -> Class['kubernetes_v1_13_0::service']
+      -> Class['kubernetes_v1_13_0::cluster_roles']
+      -> Class['kubernetes_v1_13_0::kube_addons']
   }
 
   if $worker {
-    contain kubernetes::repos
-    contain kubernetes::packages
+    contain kubernetes_v1_13_0::repos
+    contain kubernetes_v1_13_0::packages
     # K8s 1.10/1.11 can't use config files
     unless $kubernetes_version =~ /^1.1(0|1)/ {
-      contain kubernetes::config::worker
-      Class['kubernetes::config::worker'] -> Class['kubernetes::service']
+      contain kubernetes_v1_13_0::config::worker
+      Class['kubernetes_v1_13_0::config::worker'] -> Class['kubernetes_v1_13_0::service']
     }
-    contain kubernetes::service
-    contain kubernetes::cluster_roles
+    contain kubernetes_v1_13_0::service
+    contain kubernetes_v1_13_0::cluster_roles
 
-    Class['kubernetes::repos']
-      -> Class['kubernetes::packages']
-      -> Class['kubernetes::service']
-      -> Class['kubernetes::cluster_roles']
+    Class['kubernetes_v1_13_0::repos']
+      -> Class['kubernetes_v1_13_0::packages']
+      -> Class['kubernetes_v1_13_0::service']
+      -> Class['kubernetes_v1_13_0::cluster_roles']
   }
 }
