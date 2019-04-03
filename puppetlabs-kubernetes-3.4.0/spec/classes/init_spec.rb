@@ -36,12 +36,12 @@ describe 'kubernetes', :type => :class do
     } end
 
     it { should contain_class('kubernetes') }
-    it { should contain_class('kubernetes::repos') }
-    it { should contain_class('kubernetes::packages')}
-    it { should contain_class('kubernetes::config::kubeadm')}
-    it { should contain_class('kubernetes::service')}
-    it { should contain_class('kubernetes::cluster_roles')}
-    it { should contain_class('kubernetes::kube_addons')}
+    it { should contain_class('kubernetes_v1_10_0::repos') }
+    it { should contain_class('kubernetes_v1_10_0::packages')}
+    it { should contain_class('kubernetes_v1_10_0::config::kubeadm')}
+    it { should contain_class('kubernetes_v1_10_0::service')}
+    it { should contain_class('kubernetes_v1_10_0::cluster_roles')}
+    it { should contain_class('kubernetes_v1_10_0::kube_addons')}
   end
 
   context 'with worker => true and version => 1.10.2' do
@@ -50,11 +50,11 @@ describe 'kubernetes', :type => :class do
     } end
                 
     it { should contain_class('kubernetes') }
-    it { should contain_class('kubernetes::repos') }
-    it { should contain_class('kubernetes::packages')}
-    it { is_expected.to_not contain_class('kubernetes::config::kubeadm')}
-    it { is_expected.to_not contain_class('kubernetes::config::worker')}
-    it { should contain_class('kubernetes::service')}
+    it { should contain_class('kubernetes_v1_10_0::repos') }
+    it { should contain_class('kubernetes_v1_10_0::packages')}
+    it { is_expected.to_not contain_class('kubernetes_v1_10_0::config::kubeadm')}
+    it { is_expected.to_not contain_class('kubernetes_v1_10_0::config::worker')}
+    it { should contain_class('kubernetes_v1_10_0::service')}
   end
 
   context 'with worker => true and version => 1.12.2' do
@@ -63,8 +63,8 @@ describe 'kubernetes', :type => :class do
       :kubernetes_version => '1.12.2',
     } end
                 
-    it { is_expected.to_not contain_class('kubernetes::config::kubeadm')}
-    it { is_expected.to contain_class('kubernetes::config::worker')}
+    it { is_expected.to_not contain_class('kubernetes_v1_10_0::config::kubeadm')}
+    it { is_expected.to contain_class('kubernetes_v1_10_0::config::worker')}
   end
 
   context 'with node_label => foo and cloud_provider => undef' do

@@ -1,15 +1,15 @@
 # Class kubernetes kube_addons
-class kubernetes_v1_13_0::kube_addons (
+class kubernetes_v1_10_0::kube_addons (
 
-  String $cni_network_provider               = $kubernetes_v1_13_0::cni_network_provider,
-  Optional[String] $cni_rbac_binding         = $kubernetes_v1_13_0::cni_rbac_binding,
-  Boolean $install_dashboard                 = $kubernetes_v1_13_0::install_dashboard,
-  String $dashboard_version                  = $kubernetes_v1_13_0::dashboard_version,
-  String $kubernetes_version                 = $kubernetes_v1_13_0::kubernetes_version,
-  Boolean $controller                        = $kubernetes_v1_13_0::controller,
-  Optional[Boolean] $schedule_on_controller  = $kubernetes_v1_13_0::schedule_on_controller,
-  String $node_name                          = $kubernetes_v1_13_0::node_name,
-  Array $path                                = $kubernetes_v1_13_0::default_path,
+  String $cni_network_provider               = $kubernetes_v1_10_0::cni_network_provider,
+  Optional[String] $cni_rbac_binding         = $kubernetes_v1_10_0::cni_rbac_binding,
+  Boolean $install_dashboard                 = $kubernetes_v1_10_0::install_dashboard,
+  String $dashboard_version                  = $kubernetes_v1_10_0::dashboard_version,
+  String $kubernetes_version                 = $kubernetes_v1_10_0::kubernetes_version,
+  Boolean $controller                        = $kubernetes_v1_10_0::controller,
+  Optional[Boolean] $schedule_on_controller  = $kubernetes_v1_10_0::schedule_on_controller,
+  String $node_name                          = $kubernetes_v1_10_0::node_name,
+  Array $path                                = $kubernetes_v1_10_0::default_path,
 ){
 
   Exec {

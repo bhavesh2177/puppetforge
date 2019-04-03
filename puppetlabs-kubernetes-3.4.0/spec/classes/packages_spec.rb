@@ -1,5 +1,5 @@
 require 'spec_helper'
-describe 'kubernetes::packages', :type => :class do
+describe 'kubernetes_v1_10_0::packages', :type => :class do
   context 'with osfamily => RedHat and container_runtime => Docker and manage_docker => true and manage_etcd => true' do
     let(:facts) do
       {

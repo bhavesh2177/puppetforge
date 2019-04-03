@@ -14,7 +14,7 @@ for i in ${SERVICES[@]};
 
         if [[ "$i" == "etcd" ]];
           then
-                curl -s http://<%= @etcd_ip %>:2379/health | grep -qi true
+                curl --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/client.crt --key /etc/kubernetes/pki/etcd/client.key -s https://<%= @etcd_ip %>:2379/health | grep -qi true
                 if test $? -ne 0;
                   then
                         exit 1; # As the service not running exiting with status code 1.

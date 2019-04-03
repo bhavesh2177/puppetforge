@@ -95,12 +95,33 @@ class kubecontainer (
   $core_per_vm                  = '',
   $memory_per_vm                = '',
 
+  # SSL Certificate parameters
+  $cfssl_url                    = 'https://pkg.cfssl.org/R1.2/cfssl_linux-amd64',
+  $cfssljson_url                = 'https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64',  
+  $ssldir                       = '/etc/kubernetes',
+  $node_pvt_address             = $facts['networking']['interfaces']['eth2']['ip'],
+  $node_fqdn                    = $facts['fqdn'],
+  $etcd_ca_crt_pem              = '',
+  $etcd_ca_key_pem              = '',
+  $etcd_client_crt_pem          = '',
+  $etcd_client_key_pem          = '',
+  $etcd_server_crt_pem          = '',
+  $etcd_server_key_pem          = '',
+  $kubernetes_crt_pem           = '',
+  $kubernetes_key_pem           = '',
+  $kubernetes_sa_pub            = '',
+  $kubernetes_sa_key            = '',
+
 ) {
 
   case $kubernetes_version {
-  	'1.10.0': 	{ include kubecontainer::v1_13::setup }
-  	'1.11.0': 	{ include kubecontainer::v1_13::setup }
-  	'1.12.0': 	{ include kubecontainer::v1_13::setup }
+  	#'1.10.0': 	{ 
+        #                  include kubecontainer::v1_10::generate_certs 
+        #                  include kubecontainer::v1_10::setup 
+        #                }
+  	'1.10.0': 	{ include kubecontainer::v1_10::setup }
+  	'1.11.0': 	{ include kubecontainer::v1_11::setup }
+  	'1.12.0': 	{ include kubecontainer::v1_12::setup }
   	'1.13.0': 	{ include kubecontainer::v1_13::setup }
   	'1.9.0': 	{ include kubecontainer::v1_9::setup }
   	'1.8.0': 	{ include kubecontainer::v1_8::setup }

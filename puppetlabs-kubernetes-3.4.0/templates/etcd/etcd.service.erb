@@ -13,8 +13,8 @@ TimeoutStartSec=0
 
 ExecStart=/usr/local/bin/etcd --name <%= @etcd_name %> \
     --data-dir /var/lib/etcd \
-    --listen-client-urls https://<%= @etcd_ip %>:2379 \
-    --advertise-client-urls https://<%= @etcd_ip %>:2379 \
+    --listen-client-urls "https://<%= @etcd_ip %>:2379,https://<%= @virtual_master_ip.gsub(/\/.*/,"") %>:2379" \
+    --advertise-client-urls "https://<%= @etcd_ip %>:2379,https://<%= @virtual_master_ip.gsub(/\/.*/,"") %>:2379" \
     --listen-peer-urls https://<%= @etcd_ip %>:2380 \
     --initial-advertise-peer-urls https://<%= @etcd_ip %>:2380 \
     --cert-file=/etc/kubernetes/pki/etcd/server.crt \
