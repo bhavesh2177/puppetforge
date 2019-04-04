@@ -115,10 +115,6 @@ class kubecontainer (
 ) {
 
   case $kubernetes_version {
-  	#'1.10.0': 	{ 
-        #                  include kubecontainer::v1_10::generate_certs 
-        #                  include kubecontainer::v1_10::setup 
-        #                }
   	'1.10.0': 	{ include kubecontainer::v1_10::setup }
   	'1.11.0': 	{ include kubecontainer::v1_11::setup }
   	'1.12.0': 	{ include kubecontainer::v1_12::setup }

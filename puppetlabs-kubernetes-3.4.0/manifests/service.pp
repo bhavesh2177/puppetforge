@@ -1,13 +1,13 @@
 # Puppet class that controls the Kubelet service
 
-class kubernetes_v1_10_0::service (
-  String $container_runtime         = $kubernetes_v1_10_0::container_runtime,
-  Boolean $controller               = $kubernetes_v1_10_0::controller,
-  Boolean $manage_docker            = $kubernetes_v1_10_0::manage_docker,
-  Boolean $manage_etcd              = $kubernetes_v1_10_0::manage_etcd,
-  String $kubernetes_version        = $kubernetes_v1_10_0::kubernetes_version,
-  Optional[String] $cloud_provider  = $kubernetes_v1_10_0::cloud_provider,
-  Optional[String] $cloud_config    = $kubernetes_v1_10_0::cloud_config,
+class kubernetes_v1_11_0::service (
+  String $container_runtime         = $kubernetes_v1_11_0::container_runtime,
+  Boolean $controller               = $kubernetes_v1_11_0::controller,
+  Boolean $manage_docker            = $kubernetes_v1_11_0::manage_docker,
+  Boolean $manage_etcd              = $kubernetes_v1_11_0::manage_etcd,
+  String $kubernetes_version        = $kubernetes_v1_11_0::kubernetes_version,
+  Optional[String] $cloud_provider  = $kubernetes_v1_11_0::cloud_provider,
+  Optional[String] $cloud_config    = $kubernetes_v1_11_0::cloud_config,
 ){
   file { '/etc/systemd/system/kubelet.service.d':
     ensure => directory,
@@ -37,7 +37,7 @@ class kubernetes_v1_10_0::service (
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
-        content => template('kubernetes_v1_10_0/0-containerd.conf.erb'),
+        content => template('kubernetes_v1_11_0/0-containerd.conf.erb'),
         require => File['/etc/systemd/system/kubelet.service.d'],
         notify  => Exec['kubernetes-systemd-reload'],
       }
@@ -47,7 +47,7 @@ class kubernetes_v1_10_0::service (
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
-        content => template('kubernetes_v1_10_0/containerd.service.erb'),
+        content => template('kubernetes_v1_11_0/containerd.service.erb'),
         notify  => Exec['kubernetes-systemd-reload'],
       }
 
@@ -97,7 +97,7 @@ class kubernetes_v1_10_0::service (
       owner   => 'root',
       group   => 'root',
       mode    => '0644',
-      content => template('kubernetes_v1_10_0/20-cloud.conf.erb'),
+      content => template('kubernetes_v1_11_0/20-cloud.conf.erb'),
       require => File['/etc/systemd/system/kubelet.service.d'],
       notify  => Exec['kubernetes-systemd-reload'],
     }

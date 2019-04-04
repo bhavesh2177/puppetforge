@@ -1,4 +1,4 @@
-class kubecontainer::v1_10::setup inherits kubecontainer {
+class kubecontainer::v1_11::setup inherits kubecontainer {
 
   $node_pvt_address = $kubecontainer::node_pvt_address
   $action_lower = inline_template('<%= scope.lookupvar("kubecontainer::action").downcase %>')
@@ -7,12 +7,12 @@ class kubecontainer::v1_10::setup inherits kubecontainer {
 
   if($action_lower == 'install') {
 
-    include 'kubecontainer::v1_10::generate_certs'
+    include 'kubecontainer::v1_11::generate_certs'
 
     $local_etcd_name = inline_template('<% scope.lookupvar("kubecontainer::etcd_name").each do |addr| %><% ip,name = addr.split(":",2) %><% if ip == @node_pvt_address %><%= name %><% end %><% end %>')
     $etcd_initial_cluster = inline_template('<% scope.lookupvar("kubecontainer::etcd_name").each do |addr| %><% ip,name = addr.split(":",2) %><% if ip == @node_pvt_address %><%= name %>=https://<%= @node_pvt_address %>:2380<% end %><% end %>')
 
-    class {'kubernetes_v1_10_0':
+    class {'kubernetes_v1_11_0':
 	# Newly Added Options (Out of Kubernetes Puppet Module)
         etcd_name               => $local_etcd_name,
 	etcd_cluster_token	=> $kubecontainer::etcd_cluster_token,
@@ -82,7 +82,7 @@ class kubecontainer::v1_10::setup inherits kubecontainer {
 
   } elsif($action_lower == 'addmaster') {
 
-    include 'kubecontainer::v1_10::generate_certs'
+    include 'kubecontainer::v1_11::generate_certs'
 
     $local_etcd_name = inline_template('<% scope.lookupvar("kubecontainer::etcd_name").each do |addr| %><% ip,name = addr.split(":",2) %><% if ip == @node_pvt_address %><%= name %><% end %><% end %>')
     $etcd_initial_cluster = inline_template('<% scope.lookupvar("kubecontainer::master_ip_addr").each_with_index do |value, index| %><% scope.lookupvar("kubecontainer::etcd_name").each do |addr| %><% ip,name = addr.split(":",2) %><% if value == ip %><%= name %>=https://<%= value %>:2380<%= "," if index < (scope.lookupvar("kubecontainer::master_ip_addr").size - 1) %><% end %><% end %><% if value == @node_pvt_address %><% break %><% end %><% end -%>,<% scope.lookupvar("kubecontainer::additional_master_ip_addr").each_with_index do |value, index| %><% scope.lookupvar("kubecontainer::etcd_name").each do |addr| %><% ip,name = addr.split(":",2) %><% if value == ip %><%= name %>=https://<%= value %>:2380<%= "," if index < (scope.lookupvar("kubecontainer::additional_master_ip_addr").size - 1) %><% end %><% end %><% end -%>')
@@ -91,10 +91,10 @@ class kubecontainer::v1_10::setup inherits kubecontainer {
     exec {"Add '$node_pvt_address' node to ETCD":
       path      => '/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin',
       command   => "curl --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/client.crt --key /etc/kubernetes/pki/etcd/client.key https://$controller_address:2379/v2/members -XPOST -H 'Content-Type: application/json' -d '{\"peerURLs\":[\"https://$node_pvt_address:2380\"]}'", 
-      require   => Class['kubecontainer::v1_10::generate_certs']
+      require   => Class['kubecontainer::v1_11::generate_certs']
     }
 
-    class {'kubernetes_v1_10_0':
+    class {'kubernetes_v1_11_0':
         # Newly Added Options (Out of Kubernetes Puppet Module)
         etcd_name               => $local_etcd_name,
         etcd_cluster_token      => $kubecontainer::etcd_cluster_token,
@@ -167,7 +167,7 @@ class kubecontainer::v1_10::setup inherits kubecontainer {
     $local_etcd_name = inline_template('<% scope.lookupvar("kubecontainer::etcd_name").each do |addr| %><% ip,name = addr.split(":",2) %><% if ip == @node_pvt_address %><%= name %><% end %><% end %>')
     $etcd_initial_cluster = inline_template('<% scope.lookupvar("kubecontainer::master_ip_addr").each_with_index do |value, index| %><% scope.lookupvar("kubecontainer::etcd_name").each do |addr| %><% ip,name = addr.split(":",2) %><% if value == ip %><%= name %>=https://<%= value %>:2380<%= "," if index < (scope.lookupvar("kubecontainer::master_ip_addr").size - 1) %><% end %><% end %><% if value == @node_pvt_address %><% break %><% end %><% end -%>,<% scope.lookupvar("kubecontainer::additional_master_ip_addr").each_with_index do |value, index| %><% scope.lookupvar("kubecontainer::etcd_name").each do |addr| %><% ip,name = addr.split(":",2) %><% if value == ip %><%= name %>=https://<%= value %>:2380<%= "," if index < (scope.lookupvar("kubecontainer::additional_master_ip_addr").size - 1) %><% end %><% end %><% end -%>')
 
-    class {'kubernetes_v1_10_0':
+    class {'kubernetes_v1_11_0':
         # Newly Added Options (Out of Kubernetes Puppet Module)
         etcd_name               => $local_etcd_name,
         etcd_cluster_token      => $kubecontainer::etcd_cluster_token,

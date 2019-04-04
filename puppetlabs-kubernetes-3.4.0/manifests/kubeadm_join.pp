@@ -1,19 +1,19 @@
 # == kubernetes::kubeadm_join
-define kubernetes_v1_10_0::kubeadm_join (
-  String $node_name                        = $kubernetes_v1_10_0::node_name,
-  String $kubernetes_version               = $kubernetes_v1_10_0::kubernetes_version,
-  String $config                           = $kubernetes_v1_10_0::config_file,
-  String $controller_address               = $kubernetes_v1_10_0::controller_address,
-  String $ca_cert_hash                     = $kubernetes_v1_10_0::discovery_token_hash,
-  String $discovery_token                  = $kubernetes_v1_10_0::token,
-  String $tls_bootstrap_token              = $kubernetes_v1_10_0::token,
-  String $token                            = $kubernetes_v1_10_0::token,
+define kubernetes_v1_11_0::kubeadm_join (
+  String $node_name                        = $kubernetes_v1_11_0::node_name,
+  String $kubernetes_version               = $kubernetes_v1_11_0::kubernetes_version,
+  String $config                           = $kubernetes_v1_11_0::config_file,
+  String $controller_address               = $kubernetes_v1_11_0::controller_address,
+  String $ca_cert_hash                     = $kubernetes_v1_11_0::discovery_token_hash,
+  String $discovery_token                  = $kubernetes_v1_11_0::token,
+  String $tls_bootstrap_token              = $kubernetes_v1_11_0::token,
+  String $token                            = $kubernetes_v1_11_0::token,
   Optional[String] $feature_gates          = undef,
   Optional[String] $cri_socket             = undef,
   Optional[String] $discovery_file         = undef,
-  Optional[Array] $env                     = $kubernetes_v1_10_0::environment,
+  Optional[Array] $env                     = $kubernetes_v1_11_0::environment,
   Optional[Array] $ignore_preflight_errors = undef,
-  Array $path                              = $kubernetes_v1_10_0::default_path,
+  Array $path                              = $kubernetes_v1_11_0::default_path,
   Boolean $skip_ca_verification            = false,
 ) {
 

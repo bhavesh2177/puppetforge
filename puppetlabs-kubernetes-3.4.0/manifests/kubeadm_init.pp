@@ -1,10 +1,10 @@
 # == kubernetes::kubeadm_init
-define kubernetes_v1_10_0::kubeadm_init (
-  String $node_name                             = $kubernetes_v1_10_0::node_name,
-  Optional[String] $config                      = $kubernetes_v1_10_0::config_file,
+define kubernetes_v1_11_0::kubeadm_init (
+  String $node_name                             = $kubernetes_v1_11_0::node_name,
+  Optional[String] $config                      = $kubernetes_v1_11_0::config_file,
   Boolean $dry_run                              = false,
-  Array $path                                   = $kubernetes_v1_10_0::default_path,
-  Optional[Array] $env                          = $kubernetes_v1_10_0::environment,
+  Array $path                                   = $kubernetes_v1_11_0::default_path,
+  Optional[Array] $env                          = $kubernetes_v1_11_0::environment,
   Optional[Array] $ignore_preflight_errors      = undef,
 ) {
   $kubeadm_init_flags = kubeadm_init_flags({
@@ -26,5 +26,5 @@ define kubernetes_v1_10_0::kubeadm_init (
   }
 
   # This prevents a known race condition https://github.com/kubernetes/kubernetes/issues/66689
-  kubernetes_v1_10_0::wait_for_default_sa { 'default': }
+  kubernetes_v1_11_0::wait_for_default_sa { 'default': }
 }
