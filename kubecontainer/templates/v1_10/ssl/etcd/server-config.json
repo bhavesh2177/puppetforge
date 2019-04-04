@@ -1,0 +1,10 @@
+{
+    "CN": "<%= @node_pvt_address %>",
+    "hosts": [
+        ""
+    ],
+    "key": {
+        "algo": "rsa",
+        "size": 2048
+    }
+}
