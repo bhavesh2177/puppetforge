@@ -164,6 +164,8 @@ class kubecontainer::v1_10::setup inherits kubecontainer {
 
   } elsif($action_lower == 'addslave') {
 
+    include 'kubecontainer::v1_10::generate_certs'
+
     $local_etcd_name = inline_template('<% scope.lookupvar("kubecontainer::etcd_name").each do |addr| %><% ip,name = addr.split(":",2) %><% if ip == @node_pvt_address %><%= name %><% end %><% end %>')
     $etcd_initial_cluster = inline_template('<% scope.lookupvar("kubecontainer::master_ip_addr").each_with_index do |value, index| %><% scope.lookupvar("kubecontainer::etcd_name").each do |addr| %><% ip,name = addr.split(":",2) %><% if value == ip %><%= name %>=https://<%= value %>:2380<%= "," if index < (scope.lookupvar("kubecontainer::master_ip_addr").size - 1) %><% end %><% end %><% if value == @node_pvt_address %><% break %><% end %><% end -%>,<% scope.lookupvar("kubecontainer::additional_master_ip_addr").each_with_index do |value, index| %><% scope.lookupvar("kubecontainer::etcd_name").each do |addr| %><% ip,name = addr.split(":",2) %><% if value == ip %><%= name %>=https://<%= value %>:2380<%= "," if index < (scope.lookupvar("kubecontainer::additional_master_ip_addr").size - 1) %><% end %><% end %><% end -%>')
 
