@@ -116,7 +116,7 @@ class kubecontainer (
 
   case $kubernetes_version {
   	'1.10.0': 	{ include kubecontainer::v1_10::setup }
-  	'1.11.0': 	{ include kubecontainer::v1_11::setup }
+  	'1.11.0': 	{ include kubecontainer::v1_12::setup }
   	'1.12.0': 	{ include kubecontainer::v1_12::setup }
   	'1.13.0': 	{ include kubecontainer::v1_13::setup }
   	'1.9.0': 	{ include kubecontainer::v1_9::setup }

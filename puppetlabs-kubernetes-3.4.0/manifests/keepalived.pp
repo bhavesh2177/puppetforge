@@ -1,8 +1,8 @@
-class kubernetes_v1_11_0::keepalived (
-  $virtual_master_ip = $kubernetes_v1_11_0::virtual_master_ip,
-  $keepalived_virtual_router_id = $kubernetes_v1_11_0::keepalived_virtual_router_id,
-  $keepalived_auth_pass = $kubernetes_v1_11_0::keepalived_auth_pass,
-  $etcd_ip = $kubernetes_v1_11_0::etcd_ip,
+class kubernetes_v1_12_0::keepalived (
+  $virtual_master_ip = $kubernetes_v1_12_0::virtual_master_ip,
+  $keepalived_virtual_router_id = $kubernetes_v1_12_0::keepalived_virtual_router_id,
+  $keepalived_auth_pass = $kubernetes_v1_12_0::keepalived_auth_pass,
+  $etcd_ip = $kubernetes_v1_12_0::etcd_ip,
 ) {
 
     package {'Keepalived Installation':
@@ -15,14 +15,14 @@ class kubernetes_v1_11_0::keepalived (
 
     file {'/etc/keepalived/keepalived.conf':
       mode          => '0600',
-      content       => template('kubernetes_v1_11_0/keepalived/keepalived.erb'),
+      content       => template('kubernetes_v1_12_0/keepalived/keepalived.erb'),
       source_permissions => ignore,
       backup        => ".origional",
     }
 
     file {'/etc/keepalived/checkService.sh':
       mode          => '0755',
-      content       => template('kubernetes_v1_11_0/keepalived/checkService.sh.erb'),
+      content       => template('kubernetes_v1_12_0/keepalived/checkService.sh.erb'),
       require       => Package['Keepalived Installation'],
     }
 

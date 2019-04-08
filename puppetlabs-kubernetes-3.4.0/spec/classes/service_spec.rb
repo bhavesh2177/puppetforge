@@ -1,6 +1,6 @@
 require 'spec_helper'
-describe 'kubernetes_v1_11_0::service', :type => :class do
-  let(:pre_condition) { 'include kubernetes; include kubernetes_v1_11_0::config::kubeadm' }
+describe 'kubernetes_v1_12_0::service', :type => :class do
+  let(:pre_condition) { 'include kubernetes; include kubernetes_v1_12_0::config::kubeadm' }
   let(:facts) do
     {
       :kernel           => 'Linux',

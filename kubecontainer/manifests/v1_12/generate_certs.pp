@@ -1,4 +1,4 @@
-class kubecontainer::v1_11::generate_certs inherits kubecontainer {
+class kubecontainer::v1_12::generate_certs inherits kubecontainer {
 
   $cfssl_url            = $kubecontainer::cfssl_url
   $cfssljson_url        = $kubecontainer::cfssljson_url
@@ -11,13 +11,13 @@ class kubecontainer::v1_11::generate_certs inherits kubecontainer {
   file {'install_cfssl':
     path    => "/usr/local/bin/cfssl",
     mode    => "0755",
-    source  => "puppet:///modules/kubecontainer/v1_11/downloads/cfssl"
+    source  => "puppet:///modules/kubecontainer/v1_12/downloads/cfssl"
   }
 
   file {'install_cfssljson':
     path    => "/usr/local/bin/cfssljson",
     mode    => "0755",
-    source  => "puppet:///modules/kubecontainer/v1_11/downloads/cfssljson",
+    source  => "puppet:///modules/kubecontainer/v1_12/downloads/cfssljson",
     require => File['install_cfssl']
   }
 
@@ -31,50 +31,50 @@ class kubecontainer::v1_11::generate_certs inherits kubecontainer {
 
   file {"Create etcd-ca-csr.json":
     path    => "$ssldir/pki/etcd/ca-csr.json",
-    content => template("kubecontainer/v1_11/ssl/etcd/ca-csr.json"),
+    content => template("kubecontainer/v1_12/ssl/etcd/ca-csr.json"),
   }
 
   file {"Create etcd-ca-conf.json":
     path    => "$ssldir/pki/etcd/ca-conf.json",
-    content => template("kubecontainer/v1_11/ssl/etcd/ca-conf.json"),
+    content => template("kubecontainer/v1_12/ssl/etcd/ca-conf.json"),
     require => File["Create etcd-ca-csr.json"]
   }
 
   file {"Create etcd-client-csr.json":
     path    => "$ssldir/pki/etcd/client-csr.json",
-    content => template("kubecontainer/v1_11/ssl/etcd/client-config.json"),
+    content => template("kubecontainer/v1_12/ssl/etcd/client-config.json"),
     require => File["Create etcd-ca-conf.json"]
   }
 
   file {"Create etcd-server-csr.json":
     path    => "$ssldir/pki/etcd/server-csr.json",
-    content => template("kubecontainer/v1_11/ssl/etcd/server-config.json"),
+    content => template("kubecontainer/v1_12/ssl/etcd/server-config.json"),
     require => File["Create etcd-client-csr.json"]
   }
 
   file {"Create kubernetes-ca-csr.json":
     path    => "$ssldir/pki/ca-csr.json",
-    content => template("kubecontainer/v1_11/ssl/kubernetes/ca-csr.json"),
+    content => template("kubecontainer/v1_12/ssl/kubernetes/ca-csr.json"),
     require => File["Create etcd-server-csr.json"]
   }
 
   file {"Create kubernetes-ca-conf.json":
     path    => "$ssldir/pki/ca-conf.json",
-    content => template("kubecontainer/v1_11/ssl/kubernetes/ca-conf.json"),
+    content => template("kubecontainer/v1_12/ssl/kubernetes/ca-conf.json"),
     require => File["Create kubernetes-ca-csr.json"]
   }
 
   file {'ssl_etcd_ca_crt':
     path    => "$ssldir/pki/etcd/ca.crt",
     mode    => "0600",
-    content => template("kubecontainer/v1_11/ssl/etcd/ca.crt"),
+    content => template("kubecontainer/v1_12/ssl/etcd/ca.crt"),
     require => File["Create kubernetes-ca-conf.json"]
   }
 
   file {'ssl_etcd_ca_key':
     path    => "$ssldir/pki/etcd/ca.key",
     mode    => "0644",
-    content => template("kubecontainer/v1_11/ssl/etcd/ca.key"),
+    content => template("kubecontainer/v1_12/ssl/etcd/ca.key"),
     require => File["ssl_etcd_ca_crt"]
   }
 
@@ -99,35 +99,35 @@ class kubecontainer::v1_11::generate_certs inherits kubecontainer {
   file {'ssl_kubernetes_ca_crt':
     path    => "$ssldir/pki/ca.crt",
     mode    => "0644",
-    content => template("kubecontainer/v1_11/ssl/kubernetes/ca.crt"),
+    content => template("kubecontainer/v1_12/ssl/kubernetes/ca.crt"),
     require => Exec['ssl_etcd_peer']
   }
 
   file {'ssl_kubernetes_ca_key':
     path    => "$ssldir/pki/ca.key",
     mode    => "0600",
-    content => template("kubecontainer/v1_11/ssl/kubernetes/ca.key"),
+    content => template("kubecontainer/v1_12/ssl/kubernetes/ca.key"),
     require => File['ssl_kubernetes_ca_crt']
   }
 
   file {'discovery_token_hash':
     path    => "$ssldir/pki/discovery_token_hash",
     mode    => "0644",
-    content => template("kubecontainer/v1_11/ssl/kubernetes/discovery_token_hash"),
+    content => template("kubecontainer/v1_12/ssl/kubernetes/discovery_token_hash"),
     require => File['ssl_kubernetes_ca_key']
   }
 
   file {'ssl_kubernetes_sa_pub':
     path    => "$ssldir/pki/sa.pub",
     mode    => "0644",
-    content => template("kubecontainer/v1_11/ssl/kubernetes/sa.pub"),
+    content => template("kubecontainer/v1_12/ssl/kubernetes/sa.pub"),
     require => File['discovery_token_hash']
   }
 
   file {'ssl_kubernetes_sa_key':
     path    => "$ssldir/pki/sa.key",
     mode    => "0600",
-    content => template("kubecontainer/v1_11/ssl/kubernetes/sa.key"),
+    content => template("kubecontainer/v1_12/ssl/kubernetes/sa.key"),
     require => File['ssl_kubernetes_sa_pub']
   }
 

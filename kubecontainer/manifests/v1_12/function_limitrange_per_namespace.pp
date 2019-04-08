@@ -1,4 +1,4 @@
-define kubecontainer::v1_11::function_limitrange_per_namespace (
+define kubecontainer::v1_12::function_limitrange_per_namespace (
   $name_space,
   $total_cpu_cores,
   $total_memory_gb,

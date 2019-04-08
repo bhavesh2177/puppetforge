@@ -1,25 +1,25 @@
 # Class kubernetes packages
 
-class kubernetes_v1_11_0::packages (
+class kubernetes_v1_12_0::packages (
 
-  String $kubernetes_package_version           = $kubernetes_v1_11_0::kubernetes_package_version,
-  String $container_runtime                    = $kubernetes_v1_11_0::container_runtime,
-  Boolean $manage_docker                       = $kubernetes_v1_11_0::manage_docker,
-  Boolean $manage_etcd                         = $kubernetes_v1_11_0::manage_etcd,
-  Optional[String] $docker_version             = $kubernetes_v1_11_0::docker_version,
-  Optional[String] $docker_package_name        = $kubernetes_v1_11_0::docker_package_name,
-  Boolean $controller                          = $kubernetes_v1_11_0::controller,
-  Optional[String] $containerd_archive         = $kubernetes_v1_11_0::containerd_archive,
-  Optional[String] $containerd_source          = $kubernetes_v1_11_0::containerd_source,
-  String $etcd_archive                         = $kubernetes_v1_11_0::etcd_archive,
-  String $etcd_version                         = $kubernetes_v1_11_0::etcd_version,
-  String $etcd_source                          = $kubernetes_v1_11_0::etcd_source,
-  String $etcd_package_name                    = $kubernetes_v1_11_0::etcd_package_name,
-  String $etcd_install_method                  = $kubernetes_v1_11_0::etcd_install_method,
-  Optional[String] $runc_source                = $kubernetes_v1_11_0::runc_source,
-  Boolean $disable_swap                        = $kubernetes_v1_11_0::disable_swap,
-  Boolean $manage_kernel_modules               = $kubernetes_v1_11_0::manage_kernel_modules,
-  Boolean $manage_sysctl_settings              = $kubernetes_v1_11_0::manage_sysctl_settings,
+  String $kubernetes_package_version           = $kubernetes_v1_12_0::kubernetes_package_version,
+  String $container_runtime                    = $kubernetes_v1_12_0::container_runtime,
+  Boolean $manage_docker                       = $kubernetes_v1_12_0::manage_docker,
+  Boolean $manage_etcd                         = $kubernetes_v1_12_0::manage_etcd,
+  Optional[String] $docker_version             = $kubernetes_v1_12_0::docker_version,
+  Optional[String] $docker_package_name        = $kubernetes_v1_12_0::docker_package_name,
+  Boolean $controller                          = $kubernetes_v1_12_0::controller,
+  Optional[String] $containerd_archive         = $kubernetes_v1_12_0::containerd_archive,
+  Optional[String] $containerd_source          = $kubernetes_v1_12_0::containerd_source,
+  String $etcd_archive                         = $kubernetes_v1_12_0::etcd_archive,
+  String $etcd_version                         = $kubernetes_v1_12_0::etcd_version,
+  String $etcd_source                          = $kubernetes_v1_12_0::etcd_source,
+  String $etcd_package_name                    = $kubernetes_v1_12_0::etcd_package_name,
+  String $etcd_install_method                  = $kubernetes_v1_12_0::etcd_install_method,
+  Optional[String] $runc_source                = $kubernetes_v1_12_0::runc_source,
+  Boolean $disable_swap                        = $kubernetes_v1_12_0::disable_swap,
+  Boolean $manage_kernel_modules               = $kubernetes_v1_12_0::manage_kernel_modules,
+  Boolean $manage_sysctl_settings              = $kubernetes_v1_12_0::manage_sysctl_settings,
 ) {
 
   $kube_packages = ['kubelet', 'kubectl', 'kubeadm']
