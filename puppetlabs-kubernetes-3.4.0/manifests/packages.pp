@@ -33,7 +33,7 @@ class kubernetes_v1_13_0::packages (
   }
 
   if $manage_kernel_modules and $manage_sysctl_settings {
-    kmod::load { 'br_netfilter':
+    kmod::load { 'bridge':
       before => Sysctl['net.bridge.bridge-nf-call-iptables'],
     }
     sysctl { 'net.bridge.bridge-nf-call-iptables':
@@ -51,7 +51,7 @@ class kubernetes_v1_13_0::packages (
     }
   } elsif $manage_kernel_modules {
 
-    kmod::load { 'br_netfilter': }
+    kmod::load { 'bridge': }
 
   } elsif $manage_sysctl_settings {
     sysctl { 'net.bridge.bridge-nf-call-iptables':

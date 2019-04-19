@@ -11,7 +11,7 @@ vrrp_script chk_kube_svc {
 
 vrrp_instance VI_1 {
    state MASTER
-   interface eth2
+   interface eth0
    virtual_router_id <%= @keepalived_virtual_router_id %>
    priority 200
    advert_int 1
@@ -20,7 +20,7 @@ vrrp_instance VI_1 {
        auth_pass <%= @keepalived_auth_pass %>
    }
    virtual_ipaddress {
-       <%= @virtual_master_ip %> dev eth2
+       <%= @virtual_master_ip %> dev eth0
    }
    track_script {
        chk_kube_svc
