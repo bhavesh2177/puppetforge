@@ -5,6 +5,11 @@ class kubecontainer::v1_13::setup inherits kubecontainer {
   $controller_address = inline_template('<%= scope.lookupvar("kubecontainer::virtual_master_ip").gsub(/\/.*/,"") %>')
   $node_label = $kubecontainer::node_fqdn
 
+  exec {'yum enable centos repo':
+    path => '/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin',
+    command => '/usr/bin/yum clean all && mv -v /etc/yum.repos.d_backup/* /etc/yum.repos.d/'
+  }
+
   if($action_lower == 'install') {
 
     include 'kubecontainer::v1_13::generate_certs'

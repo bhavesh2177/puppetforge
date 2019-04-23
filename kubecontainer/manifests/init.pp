@@ -99,7 +99,7 @@ class kubecontainer (
   $cfssl_url                    = 'https://pkg.cfssl.org/R1.2/cfssl_linux-amd64',
   $cfssljson_url                = 'https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64',  
   $ssldir                       = '/etc/kubernetes',
-  $node_pvt_address             = $facts['networking']['interfaces']['eth0']['ip'],
+  $node_pvt_address             = $facts['networking']['interfaces']['eth1']['ip'],
   $node_fqdn                    = $facts['fqdn'],
   $etcd_ca_crt_pem              = '',
   $etcd_ca_key_pem              = '',

@@ -39,15 +39,24 @@ class kubernetes_v1_13_0::packages (
     sysctl { 'net.bridge.bridge-nf-call-iptables':
       ensure => present,
       value  => '1',
+      target => '/etc/sysctl.d/kube-sysctl.conf',
       before => Sysctl['net.ipv4.ip_forward'],
     }
     sysctl { 'net.ipv4.ip_forward':
       ensure => present,
       value  => '1',
+      target => '/etc/sysctl.d/kube-sysctl.conf',
+      before => Sysctl['net.ipv4.ip_nonlocal_bind'],
     }
     sysctl { 'net.ipv4.ip_nonlocal_bind':
       ensure => present,
       value  => '1',
+      target => '/etc/sysctl.d/kube-sysctl.conf',
+      before => Exec['apply-sysctl'],
+    }
+    exec { 'apply-sysctl':
+      path    => '/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/opt/puppetlabs/bin:/root/bin',
+      command => 'sysctl -p',
     }
   } elsif $manage_kernel_modules {
 
