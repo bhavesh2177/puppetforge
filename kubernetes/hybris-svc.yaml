@@ -2,8 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: ${appName}-service
-  name: ${appName}
+    app: ${APPNAME}-service
+  name: ${APPNAME}
   namespace: jenkins
 spec:
   ports:
@@ -18,5 +18,5 @@ spec:
     protocol: TCP
     targetPort: 9002
   selector:
-    app: ${appName}-pod
+    app: ${APPNAME}-pod
   type: NodePort

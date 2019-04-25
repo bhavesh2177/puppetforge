@@ -2,25 +2,25 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: ${appName}-deploy
-  name: ${appName}
+    app: ${APPNAME}-deploy
+  name: ${APPNAME}
   namespace: jenkins
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: ${appName}-pod
+      app: ${APPNAME}-pod
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: ${appName}-pod
+        app: ${APPNAME}-pod
     spec:
       containers:
-      - name: ${appName}
-        image: ${imageName}
+      - name: ${APPNAME}
+        image: ${IMAGENAME}
         imagePullPolicy: Always
         ports:
         - containerPort: 9001
