@@ -29,13 +29,6 @@ spec:
         - containerPort: 9002
           name: https
           protocol: TCP
-        resources:
-          limits:
-            cpu: "2"
-            memory: 2Gi
-          requests:
-            cpu: "2"
-            memory: 2Gi
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       securityContext:

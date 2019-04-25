@@ -8,12 +8,12 @@ metadata:
 spec:
   ports:
   - name: http
-    nodePort: 30155
+    #nodePort: 30155
     port: 9001
     protocol: TCP
     targetPort: 9001
   - name: https
-    nodePort: 30156
+    #nodePort: 30156
     port: 9002
     protocol: TCP
     targetPort: 9002
