@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ${appName}-service
+  name: ${appName}
+  namespace: jenkins
+spec:
+  ports:
+  - name: http
+    nodePort: 30155
+    port: 9001
+    protocol: TCP
+    targetPort: 9001
+  - name: https
+    nodePort: 30156
+    port: 9002
+    protocol: TCP
+    targetPort: 9002
+  selector:
+    app: ${appName}-pod
+  type: NodePort

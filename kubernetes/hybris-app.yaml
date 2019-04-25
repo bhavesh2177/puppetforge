@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: ${appName}-deploy
+  name: ${appName}
+  namespace: jenkins
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: ${appName}-pod
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: ${appName}-pod
+    spec:
+      containers:
+      - name: ${appName}
+        image: ${imageName}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9001
+          name: http
+          protocol: TCP
+        - containerPort: 9002
+          name: https
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "2"
+            memory: 2Gi
+          requests:
+            cpu: "2"
+            memory: 2Gi
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext:
+        runAsUser: 0
