@@ -19,6 +19,7 @@ nodeName: <%= @node_name %>
 networking:
   podSubnet: <%= @cni_pod_cidr %>
   serviceSubnet: <%= @service_cidr %>
+  dnsDomain: <%= @dns_cluster_domain %>
 apiServerExtraArgs:
   endpoint-reconciler-type: lease
   <%- @apiserver_extra_arguments.each do |arg| -%>

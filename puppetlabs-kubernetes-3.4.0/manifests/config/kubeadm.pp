@@ -6,6 +6,7 @@ class kubernetes_v1_13_0::config::kubeadm (
   String $keepalived_auth_pass = $kubernetes_v1_13_0::keepalived_auth_pass,
   String $keepalived_virtual_router_id = $kubernetes_v1_13_0::keepalived_virtual_router_id,
   String $virtual_master_ip = $kubernetes_v1_13_0::virtual_master_ip,
+  String $dns_cluster_domain = $kubernetes_v1_13_0::dns_cluster_domain,
   # Addition End
 
   String $config_file = $kubernetes_v1_13_0::config_file,

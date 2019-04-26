@@ -3,6 +3,7 @@ class kubecontainer::v1_13::setup inherits kubecontainer {
   $node_pvt_address = $kubecontainer::node_pvt_address
   $action_lower = inline_template('<%= scope.lookupvar("kubecontainer::action").downcase %>')
   $controller_address = inline_template('<%= scope.lookupvar("kubecontainer::virtual_master_ip").gsub(/\/.*/,"") %>')
+  $dns_cluster_domain = inline_template('<%= scope.lookupvar("kubecontainer::dns_cluster_domain").downcase %>')
   $node_label = $kubecontainer::node_fqdn
 
   exec {'yum enable centos repo':
@@ -24,11 +25,11 @@ class kubecontainer::v1_13::setup inherits kubecontainer {
         keepalived_auth_pass    => $kubecontainer::keepalived_auth_pass,
         keepalived_virtual_router_id => $kubecontainer::keepalived_virtual_router_id,
         virtual_master_ip       => $kubecontainer::virtual_master_ip,
-        dns_cluster_domain	=> $kubecontainer::dns_cluster_domain,
+        dns_cluster_domain	=> $dns_cluster_domain,
 	#nod_sys_reserved_disk 	=> $kubecontainer::nod_sys_reserved_disk,
 
 	# Kubernetes Class Built In
-        apiserver_cert_extra_sans => [ "$kubecontainer::dns_cluster_domain", "$controller_address" ],
+        apiserver_cert_extra_sans => [ "$dns_cluster_domain", "$controller_address" ],
         cni_network_provider    => "https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml",
         cni_pod_cidr            => $kubecontainer::flannel_ip_range,
         container_runtime       => "docker",
@@ -67,7 +68,7 @@ class kubecontainer::v1_13::setup inherits kubecontainer {
         service_cidr            => $kubecontainer::svc_ip_range,
         worker                  => false,
         token                   => "invj0c.h781mm3tx82hj57g",
-        kubelet_extra_arguments => ["cluster-domain: '$kubecontainer::dns_cluster_domain'","port: '$kubecontainer::nod_port'","hostname-override: '$node_label'","kube-reserved: '$kubecontainer::nod_kube_reserved_cpu,$kubecontainer::nod_kube_reserved_ram'","system-reserved: '$kubecontainer::nod_sys_reserved_cpu,$kubecontainer::nod_sys_reserved_ram'","max-pods: '110'","allow-privileged: 'true'"],
+        kubelet_extra_arguments => ["cluster-domain: '$dns_cluster_domain'","port: '$kubecontainer::nod_port'","hostname-override: '$node_label'","kube-reserved: '$kubecontainer::nod_kube_reserved_cpu,$kubecontainer::nod_kube_reserved_ram'","system-reserved: '$kubecontainer::nod_sys_reserved_cpu,$kubecontainer::nod_sys_reserved_ram'","max-pods: '110'","allow-privileged: 'true'"],
         api_server_count        => 0,
         discovery_token_hash    => 'aa4c5dae816a87b13f82efb9500b1cee6b18ee06bb314de9de905024993a0fa0',
         kubernetes_ca_crt       => '',
@@ -107,11 +108,11 @@ class kubecontainer::v1_13::setup inherits kubecontainer {
         keepalived_auth_pass    => $kubecontainer::keepalived_auth_pass,
         keepalived_virtual_router_id => $kubecontainer::keepalived_virtual_router_id,
         virtual_master_ip      => $kubecontainer::virtual_master_ip,
-        dns_cluster_domain	=> $kubecontainer::dns_cluster_domain,
+        dns_cluster_domain	=> $dns_cluster_domain,
         #nod_sys_reserved_disk  => $kubecontainer::nod_sys_reserved_disk,
 
         # Kubernetes Class Built In
-        apiserver_cert_extra_sans => [ "$kubecontainer::dns_cluster_domain", "$controller_address" ],
+        apiserver_cert_extra_sans => [ "$dns_cluster_domain", "$controller_address" ],
         cni_network_provider    => "https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml",
         cni_pod_cidr            => $kubecontainer::flannel_ip_range,
         container_runtime       => "docker",
@@ -150,7 +151,7 @@ class kubecontainer::v1_13::setup inherits kubecontainer {
         service_cidr            => $kubecontainer::svc_ip_range,
         worker                  => false,
         token                   => "invj0c.h781mm3tx82hj57g",
-        kubelet_extra_arguments => ["cluster-domain: '$kubecontainer::dns_cluster_domain'","port: '$kubecontainer::nod_port'","hostname-override: '$node_label'","kube-reserved: '$kubecontainer::nod_kube_reserved_cpu,$kubecontainer::nod_kube_reserved_ram'","system-reserved: '$kubecontainer::nod_sys_reserved_cpu,$kubecontainer::nod_sys_reserved_ram'","max-pods: '110'","allow-privileged: 'true'"],
+        kubelet_extra_arguments => ["cluster-domain: '$dns_cluster_domain'","port: '$kubecontainer::nod_port'","hostname-override: '$node_label'","kube-reserved: '$kubecontainer::nod_kube_reserved_cpu,$kubecontainer::nod_kube_reserved_ram'","system-reserved: '$kubecontainer::nod_sys_reserved_cpu,$kubecontainer::nod_sys_reserved_ram'","max-pods: '110'","allow-privileged: 'true'"],
         api_server_count        => 0,
         discovery_token_hash    => 'aa4c5dae816a87b13f82efb9500b1cee6b18ee06bb314de9de905024993a0fa0',
         kubernetes_ca_crt       => '',
@@ -181,11 +182,11 @@ class kubecontainer::v1_13::setup inherits kubecontainer {
         keepalived_auth_pass    => $kubecontainer::keepalived_auth_pass,
         keepalived_virtual_router_id => $kubecontainer::keepalived_virtual_router_id,
         virtual_master_ip      => $kubecontainer::virtual_master_ip,
-        dns_cluster_domain	=> $kubecontainer::dns_cluster_domain,
+        dns_cluster_domain	=> $dns_cluster_domain,
         #nod_sys_reserved_disk  => $kubecontainer::nod_sys_reserved_disk,
 
         # Kubernetes Class Built In
-        apiserver_cert_extra_sans => [ "$kubecontainer::dns_cluster_domain", "$controller_address" ],
+        apiserver_cert_extra_sans => [ "$dns_cluster_domain", "$controller_address" ],
         cni_network_provider    => "https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml",
         cni_pod_cidr            => $kubecontainer::flannel_ip_range,
         container_runtime       => "docker",
@@ -224,7 +225,7 @@ class kubecontainer::v1_13::setup inherits kubecontainer {
         service_cidr            => $kubecontainer::svc_ip_range,
         worker                  => true,
         token                   => "invj0c.h781mm3tx82hj57g",
-        kubelet_extra_arguments => ["cluster-domain: '$kubecontainer::dns_cluster_domain'","port: '$kubecontainer::nod_port'","hostname-override: '$node_label'","kube-reserved: '$kubecontainer::nod_kube_reserved_cpu,$kubecontainer::nod_kube_reserved_ram'","system-reserved: '$kubecontainer::nod_sys_reserved_cpu,$kubecontainer::nod_sys_reserved_ram'","max-pods: '110'","allow-privileged: 'true'"],
+        kubelet_extra_arguments => ["cluster-domain: '$dns_cluster_domain'","port: '$kubecontainer::nod_port'","hostname-override: '$node_label'","kube-reserved: '$kubecontainer::nod_kube_reserved_cpu,$kubecontainer::nod_kube_reserved_ram'","system-reserved: '$kubecontainer::nod_sys_reserved_cpu,$kubecontainer::nod_sys_reserved_ram'","max-pods: '110'","allow-privileged: 'true'"],
         api_server_count        => 0,
         discovery_token_hash    => 'aa4c5dae816a87b13f82efb9500b1cee6b18ee06bb314de9de905024993a0fa0',
         kubernetes_ca_crt       => '',

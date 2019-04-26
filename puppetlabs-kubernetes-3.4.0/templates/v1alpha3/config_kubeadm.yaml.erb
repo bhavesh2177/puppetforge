@@ -52,6 +52,7 @@ clusterName: <%= @kubernetes_cluster_name %>
 networking:
   podSubnet: <%= @cni_pod_cidr %>
   serviceSubnet: <%= @service_cidr %>
+  dnsDomain: <%= @dns_cluster_domain %>
 <%- if @apiserver_merged_extra_arguments -%>
 apiServerExtraArgs:
   <%- @apiserver_merged_extra_arguments.each do |arg| -%>
