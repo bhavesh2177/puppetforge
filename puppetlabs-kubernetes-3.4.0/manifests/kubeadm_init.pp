@@ -1,5 +1,6 @@
 # == kubernetes::kubeadm_init
 define kubernetes_v1_13_0::kubeadm_init (
+  String $dns_cluster_domain			= $kubernetes_v1_13_0::dns_cluster_domain,
   String $node_name                             = $kubernetes_v1_13_0::node_name,
   Optional[String] $config                      = $kubernetes_v1_13_0::config_file,
   Boolean $dry_run                              = false,
@@ -11,6 +12,7 @@ define kubernetes_v1_13_0::kubeadm_init (
     config                  => $config,
     dry_run                 => $dry_run,
     ignore_preflight_errors => $ignore_preflight_errors,
+    service_dns_domain      => $dns_cluster_domain,
   })
 
   $exec_init = "kubeadm init ${kubeadm_init_flags}"

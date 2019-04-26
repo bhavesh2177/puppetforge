@@ -346,6 +346,7 @@ class kubernetes_v1_13_0 (
   String $keepalived_auth_pass                 = undef,
   String $keepalived_virtual_router_id         = undef,
   String $virtual_master_ip                    = undef,
+  String $dns_cluster_domain                   = undef,
   # Addition End
 
   String $kubernetes_version                   = '1.10.2',

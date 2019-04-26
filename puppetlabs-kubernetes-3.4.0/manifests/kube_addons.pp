@@ -1,6 +1,6 @@
 # Class kubernetes kube_addons
 class kubernetes_v1_13_0::kube_addons (
-
+  Optional[String] $cni_pod_cidr             = $kubernetes_v1_13_0::cni_pod_cidr,
   String $cni_network_provider               = $kubernetes_v1_13_0::cni_network_provider,
   Optional[String] $cni_rbac_binding         = $kubernetes_v1_13_0::cni_rbac_binding,
   Boolean $install_dashboard                 = $kubernetes_v1_13_0::install_dashboard,
@@ -31,7 +31,8 @@ class kubernetes_v1_13_0::kube_addons (
 
   $shellsafe_provider = shell_escape($cni_network_provider)
   exec { 'Install cni network provider':
-    command => "kubectl apply -f ${shellsafe_provider}",
+    path    => '/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin',
+    command => "wget -q -c $shellsafe_provider && sed -i 's#10.244.0.0/16#$cni_pod_cidr#' kube-flannel.yml && kubectl apply -f kube-flannel.yml && rm -f kube-flannel.yml",
     onlyif  => 'kubectl get nodes',
     unless  => "kubectl -n kube-system get daemonset | egrep '(flannel|weave|calico-node)'"
     }
