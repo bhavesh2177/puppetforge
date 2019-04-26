@@ -107,6 +107,7 @@ class kubecontainer::v1_13::setup inherits kubecontainer {
         keepalived_auth_pass    => $kubecontainer::keepalived_auth_pass,
         keepalived_virtual_router_id => $kubecontainer::keepalived_virtual_router_id,
         virtual_master_ip      => $kubecontainer::virtual_master_ip,
+        dns_cluster_domain	=> $kubecontainer::dns_cluster_domain,
         #nod_sys_reserved_disk  => $kubecontainer::nod_sys_reserved_disk,
 
         # Kubernetes Class Built In
@@ -180,6 +181,7 @@ class kubecontainer::v1_13::setup inherits kubecontainer {
         keepalived_auth_pass    => $kubecontainer::keepalived_auth_pass,
         keepalived_virtual_router_id => $kubecontainer::keepalived_virtual_router_id,
         virtual_master_ip      => $kubecontainer::virtual_master_ip,
+        dns_cluster_domain	=> $kubecontainer::dns_cluster_domain,
         #nod_sys_reserved_disk  => $kubecontainer::nod_sys_reserved_disk,
 
         # Kubernetes Class Built In
