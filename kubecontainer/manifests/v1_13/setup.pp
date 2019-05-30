@@ -1,10 +1,11 @@
 class kubecontainer::v1_13::setup inherits kubecontainer {
 
-  $node_pvt_address = $kubecontainer::node_pvt_address
+  $node_pvt_address = $facts['networking']['interfaces']['eth1']['ip']
+  $node_fqdn = $facts['fqdn']
   $action_lower = inline_template('<%= scope.lookupvar("kubecontainer::action").downcase %>')
   $controller_address = inline_template('<%= scope.lookupvar("kubecontainer::virtual_master_ip").gsub(/\/.*/,"") %>')
   $dns_cluster_domain = inline_template('<%= scope.lookupvar("kubecontainer::dns_cluster_domain").downcase %>')
-  $node_label = $kubecontainer::node_fqdn
+  $node_label = $node_fqdn
 
   exec {'yum enable centos repo':
     path => '/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin',
