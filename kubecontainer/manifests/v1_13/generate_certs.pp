@@ -4,7 +4,7 @@ class kubecontainer::v1_13::generate_certs inherits kubecontainer {
   $cfssljson_url        = $kubecontainer::cfssljson_url
   $ssldir               = $kubecontainer::ssldir
   $node_pvt_address     = $kubecontainer::node_pvt_address
-  $node_fqdn            = $kubecontainer::node_fqdn
+  $node_fqdn            = $facts['fqdn']
   $ssl_dirs             = ["$ssldir","$ssldir/pki","$ssldir/pki/etcd"]
   $virtual_master_ip    = inline_template('<%= scope.lookupvar("kubecontainer::virtual_master_ip").gsub(/\/.*/,"") %>')
 
